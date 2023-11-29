@@ -1,39 +1,35 @@
 package A23.C6.TP3.ServiceREST.PMAF.db;
 
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-@Entity
-@Table(name = "fastestRoute")
+import java.util.List;
+
+@Service
 public class BestRouteService {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @Column(name = "bestRoute")
-    private String columnName;
+    private  BestRouteRepo bestRouteRepo;
 
-    public BestRouteService() {
+    public BestRouteRepo getBestRouteRepo() {
+        return bestRouteRepo;
     }
 
-    public BestRouteService(Long id, String columnName) {
-        this.id = id;
-        this.columnName = columnName;
+    @Autowired
+    public void setBestRouteRepo(BestRouteRepo bestRouteRepo) {
+        this.bestRouteRepo = bestRouteRepo;
     }
 
-    public Long getId() {
-        return id;
+    public void saveBestRoute(BestRoute bestRoute){
+        bestRouteRepo.save(bestRoute);
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void deleteBestRoute(Integer id){
+        bestRouteRepo.deleteById(id);
     }
 
-    public String getColumnName() {
-        return columnName;
-    }
-
-    public void setColumnName(String columnName) {
-        this.columnName = columnName;
+    public List<BestRoute> getAllRoutes(){
+        return bestRouteRepo.findAll();
     }
 }
