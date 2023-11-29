@@ -1,4 +1,4 @@
-package A23.C6.TP3.ServiceREST.AFPM;
+package A23.C6.TP3.ServiceREST.PMAF;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

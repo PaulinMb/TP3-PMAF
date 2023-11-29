@@ -1,4 +1,4 @@
-package A23.C6.TP3.ServiceREST.AFPM;
+package A23.C6.TP3.ServiceREST.PMAF;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
