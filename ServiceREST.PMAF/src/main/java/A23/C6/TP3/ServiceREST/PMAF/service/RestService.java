@@ -48,7 +48,7 @@ public class RestService {
     @GetMapping("/getBestRoute")
     public ResponseEntity<String> getBestRoute() {  //ResponseEntity<BestRoute>
         //List<BestRoute> routes = bestRouteService.getBestRouteRepo().findAllRoutes();
-        String route = "depart / wp1 / wp2 / retourDepart";
+        String route = "depart / wp1 / wp2 / wp3 / wp4 / wp5 / wp6 retourDepart ";
 
         if (!route.isEmpty()) {  //!routes.isEmpty()
             //BestRoute bestRoute = routes.get(0);
