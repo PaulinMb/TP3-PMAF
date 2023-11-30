@@ -1,7 +1,7 @@
 package A23.C6.TP3.ServiceREST.PMAF.service;
 
-import A23.C6.TP3.ServiceREST.PMAF.db.BestRoute;
-import A23.C6.TP3.ServiceREST.PMAF.db.BestRouteService;
+
+
 import A23.C6.TP3.ServiceREST.PMAF.gestionnaire.GestionnaireClient;
 import A23.C6.TP3.ServiceREST.PMAF.gestionnaire.GestionnaireEntrepot;
 import A23.C6.TP3.ServiceREST.PMAF.modele.Client;
@@ -26,8 +26,8 @@ public class RestService {
     private GestionnaireClient gestionnaireClient;
     private GestionnaireEntrepot gestionnaireEntrepot;
 
-    @Autowired
-    private BestRouteService bestRouteService;
+   /* @Autowired
+    private BestRouteService bestRouteService;*/
 
     public RestService() {
         this.gestionnaireClient = new GestionnaireClient();
@@ -39,7 +39,7 @@ public class RestService {
         return gestionnaireClient.getClientList();
     }
 
-    @GetMapping("/getBestRoute")
+   /* @GetMapping("/getBestRoute")
     public ResponseEntity<BestRoute> getBestRoute() {
         List<BestRoute> routes = bestRouteService.getBestRouteRepo().findAllRoutes();
 
@@ -48,7 +48,7 @@ public class RestService {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-    }
+    }*/
 
     @PostMapping("/calculateOptimalRoute")
     public ResponseEntity<String> calculateOptimalRoute(@RequestBody List<Client> clientList) {

@@ -1,12 +1,12 @@
 package A23.C6.TP3.ServiceREST.PMAF.db;
 
-import jakarta.persistence.*;
+//import jakarta.persistence.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+/*@Service
 public class BestRouteService {
 
 
@@ -39,4 +39,4 @@ public class BestRouteService {
     public List<BestRoute> getAllRoutes(){
         return bestRouteRepo.findAll();
     }
-}
+}*/

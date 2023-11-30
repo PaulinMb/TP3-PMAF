@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="678.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="logistique.MainControlleur">
+   <children>
+      <ListView fx:id="listAdresse" layoutX="23.0" layoutY="59.0" prefHeight="318.0" prefWidth="204.0" />
+      <Label layoutX="273.0" layoutY="24.0" text="Logistique" />
+      <Button layoutX="252.0" layoutY="175.0" mnemonicParsing="false" onAction="#calculeRouteOptimal" text="Calculer selectionnées" />
+      <Button layoutX="273.0" layoutY="71.0" mnemonicParsing="false" onAction="#loadAdressesApi" text="Load adresses" />
+      <ListView fx:id="listAdresseSelected" layoutX="428.0" layoutY="59.0" prefHeight="318.0" prefWidth="204.0" />
+      <Button layoutX="293.0" layoutY="294.0" mnemonicParsing="false" onAction="#addToList" text="Add" />
+      <Button layoutX="293.0" layoutY="332.0" mnemonicParsing="false" onAction="#removeFromList" text="Remove" />
+   </children>
+</AnchorPane>

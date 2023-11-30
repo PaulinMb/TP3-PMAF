@@ -1,8 +1,8 @@
 package A23.C6.TP3.ServiceREST.PMAF.db;
 
-import jakarta.persistence.*;
+//import jakarta.persistence.*;
 
-@Entity
+/*@Entity
 @Table(name = "fastestroute")
 public class BestRoute {
 
@@ -37,4 +37,4 @@ public class BestRoute {
     public void setColumnName(String columnName) {
         this.columnName = columnName;
     }
-}
+}*/
