@@ -41,10 +41,15 @@ public class MainControlleur implements Initializable {
     @FXML
     void loadAdressesApi(ActionEvent event)   {
 
+        //efface tous
+        clientList.clear();
+        clientListSelected.clear();
+        listAdresse.getItems().clear();
+        listAdresseSelected.getItems().clear();
+
 
         try {
             ApiCall apiCall = new ApiCall();
-            clientList.clear();
             clientList.addAll(apiCall.getAllAdresses());
             System.out.println(clientList.toString());
             ObservableList<Client> observableClientList = FXCollections.observableArrayList(clientList);

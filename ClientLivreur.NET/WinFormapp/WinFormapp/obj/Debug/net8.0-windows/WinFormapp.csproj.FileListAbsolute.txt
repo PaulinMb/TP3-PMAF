@@ -1,0 +1,17 @@
+C:\Users\antou98\Desktop\tp3Web\TP3-PMAF\ClientLivreur.NET\WinFormapp\WinFormapp\bin\Debug\net8.0-windows\WinFormapp.exe
+C:\Users\antou98\Desktop\tp3Web\TP3-PMAF\ClientLivreur.NET\WinFormapp\WinFormapp\bin\Debug\net8.0-windows\WinFormapp.deps.json
+C:\Users\antou98\Desktop\tp3Web\TP3-PMAF\ClientLivreur.NET\WinFormapp\WinFormapp\bin\Debug\net8.0-windows\WinFormapp.runtimeconfig.json
+C:\Users\antou98\Desktop\tp3Web\TP3-PMAF\ClientLivreur.NET\WinFormapp\WinFormapp\bin\Debug\net8.0-windows\WinFormapp.dll
+C:\Users\antou98\Desktop\tp3Web\TP3-PMAF\ClientLivreur.NET\WinFormapp\WinFormapp\bin\Debug\net8.0-windows\WinFormapp.pdb
+C:\Users\antou98\Desktop\tp3Web\TP3-PMAF\ClientLivreur.NET\WinFormapp\WinFormapp\obj\Debug\net8.0-windows\WinFormapp.Form1.resources
+C:\Users\antou98\Desktop\tp3Web\TP3-PMAF\ClientLivreur.NET\WinFormapp\WinFormapp\obj\Debug\net8.0-windows\WinFormapp.csproj.GenerateResource.cache
+C:\Users\antou98\Desktop\tp3Web\TP3-PMAF\ClientLivreur.NET\WinFormapp\WinFormapp\obj\Debug\net8.0-windows\WinFormapp.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\antou98\Desktop\tp3Web\TP3-PMAF\ClientLivreur.NET\WinFormapp\WinFormapp\obj\Debug\net8.0-windows\WinFormapp.AssemblyInfoInputs.cache
+C:\Users\antou98\Desktop\tp3Web\TP3-PMAF\ClientLivreur.NET\WinFormapp\WinFormapp\obj\Debug\net8.0-windows\WinFormapp.AssemblyInfo.cs
+C:\Users\antou98\Desktop\tp3Web\TP3-PMAF\ClientLivreur.NET\WinFormapp\WinFormapp\obj\Debug\net8.0-windows\WinFormapp.csproj.CoreCompileInputs.cache
+C:\Users\antou98\Desktop\tp3Web\TP3-PMAF\ClientLivreur.NET\WinFormapp\WinFormapp\obj\Debug\net8.0-windows\WinFormapp.sourcelink.json
+C:\Users\antou98\Desktop\tp3Web\TP3-PMAF\ClientLivreur.NET\WinFormapp\WinFormapp\obj\Debug\net8.0-windows\WinFormapp.dll
+C:\Users\antou98\Desktop\tp3Web\TP3-PMAF\ClientLivreur.NET\WinFormapp\WinFormapp\obj\Debug\net8.0-windows\refint\WinFormapp.dll
+C:\Users\antou98\Desktop\tp3Web\TP3-PMAF\ClientLivreur.NET\WinFormapp\WinFormapp\obj\Debug\net8.0-windows\WinFormapp.pdb
+C:\Users\antou98\Desktop\tp3Web\TP3-PMAF\ClientLivreur.NET\WinFormapp\WinFormapp\obj\Debug\net8.0-windows\WinFormapp.genruntimeconfig.cache
+C:\Users\antou98\Desktop\tp3Web\TP3-PMAF\ClientLivreur.NET\WinFormapp\WinFormapp\obj\Debug\net8.0-windows\ref\WinFormapp.dll

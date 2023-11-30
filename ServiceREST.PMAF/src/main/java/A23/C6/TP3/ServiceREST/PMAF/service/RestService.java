@@ -45,21 +45,22 @@ public class RestService {
         return gestionnaireClient.getClientList();
     }
 
-   /* @GetMapping("/getBestRoute")
-    public ResponseEntity<BestRoute> getBestRoute() {
-        List<BestRoute> routes = bestRouteService.getBestRouteRepo().findAllRoutes();
+    @GetMapping("/getBestRoute")
+    public ResponseEntity<String> getBestRoute() {  //ResponseEntity<BestRoute>
+        //List<BestRoute> routes = bestRouteService.getBestRouteRepo().findAllRoutes();
+        String route = "depart / wp1 / wp2 / retourDepart";
 
-        if (!routes.isEmpty()) {
-            BestRoute bestRoute = routes.get(0);
-            if (bestRoute.getColumnName() != null) {
-                return new ResponseEntity<>(bestRoute, HttpStatus.OK);
+        if (!route.isEmpty()) {  //!routes.isEmpty()
+            //BestRoute bestRoute = routes.get(0);
+            if (route!= null) { //bestRoute.getColumnName() != null
+                return new ResponseEntity<>(route, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR); // or another appropriate status
             }
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-    }*/
+    }
 
     @PostMapping("/calculateOptimalRoute")
     public ResponseEntity<String> calculateOptimalRoute(@RequestBody List<Client> clientList) {
@@ -119,7 +120,7 @@ public class RestService {
                         Double bestRouteDistance = (Double) routePlannerJson.get("distance");
 
                         // Enregistre la meilleure route dans la base de données
-                        bestRouteService.saveBestRoute(bestRouteDistance);
+                         //bestRouteService.saveBestRoute(bestRouteDistance);
 
                         // Réponse à renvoyer en cas de succès
                         return new ResponseEntity<>("Route optimale calculée et enregistrée avec succès", HttpStatus.OK);
