@@ -1,8 +1,10 @@
-package A23.C6.TP3.ServiceREST.PMAF;
+package A23.C6.TP3.ServiceREST.PMAF.service;
 
 import A23.C6.TP3.ServiceREST.PMAF.db.BestRoute;
 import A23.C6.TP3.ServiceREST.PMAF.db.BestRouteService;
-import org.hibernate.query.ReturnableType;
+import A23.C6.TP3.ServiceREST.PMAF.gestionnaire.GestionnaireClient;
+import A23.C6.TP3.ServiceREST.PMAF.gestionnaire.GestionnaireEntrepot;
+import A23.C6.TP3.ServiceREST.PMAF.modele.Client;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +14,22 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class RestServices {
+public class ServiceRest {
+    private GestionnaireClient gestionnaireClient;
+    private GestionnaireEntrepot gestionnaireEntrepot;
 
     @Autowired
     private BestRouteService bestRouteService;
 
+    public ServiceRest() {
+        this.gestionnaireClient = new GestionnaireClient();
+        this.gestionnaireEntrepot = new GestionnaireEntrepot();
+    }
+
+    @GetMapping(value = "/allClients")
+    public List<Client> obtenirClients(){
+        return gestionnaireClient.getClientList();
+    }
 
     @GetMapping("/getBestRoute")
     public ResponseEntity<BestRoute> getBestRoute() {
@@ -29,4 +42,3 @@ public class RestServices {
         }
     }
 }
-
