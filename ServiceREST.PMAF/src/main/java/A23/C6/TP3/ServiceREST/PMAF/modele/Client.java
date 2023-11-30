@@ -54,4 +54,15 @@ public class Client {
     public void setDistance(double distance) {
         this.distance = distance;
     }
+
+    @Override
+    public String toString() {
+        return "{"
+                +"\""+"nom\": \"" + nom + "\", "
+                +"\""+"adresse\": \"" + adresse + "\""
+                +", \""+"latitude\": " + latitude
+                +", \""+"longitude\": " + longitude
+                +", \""+"distance\": " + distance +
+                '}';
+    }
 }

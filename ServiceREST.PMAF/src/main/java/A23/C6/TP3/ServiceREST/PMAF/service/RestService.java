@@ -52,7 +52,10 @@ public class RestService {
 
     @PostMapping("/calculateOptimalRoute")
     public ResponseEntity<String> calculateOptimalRoute(@RequestBody List<Client> clientList) {
-        try {
+        if (clientList!=null){
+            System.out.println(clientList.toString());
+        }
+       try {
             List<Client> clients = gestionnaireClient.getClientList();
             Client entrepot = gestionnaireEntrepot.getEntrepot();
 
@@ -108,6 +111,7 @@ public class RestService {
             e.printStackTrace();
             return new ResponseEntity<>("Erreur lors du calcul de la route optimale", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        //return new ResponseEntity<>("Route optimale calculée et enregistrée avec succès", HttpStatus.OK);
     }
 
     private void logIpAddress() {
