@@ -7,9 +7,8 @@ import org.springframework.stereotype.Service;
 import java.text.MessageFormat;
 import java.util.List;
 
-/*@Service
+@Service
 public class BestRouteService {
-
 
     private  BestRouteRepo bestRouteRepo;
 
@@ -35,4 +34,4 @@ public class BestRouteService {
     public List<BestRoute> getAllRoutes(){
         return bestRouteRepo.findAll();
     }
-}*/
+}
