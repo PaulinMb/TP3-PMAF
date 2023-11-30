@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -45,12 +46,12 @@ public class RestService {
         if (!routes.isEmpty()) {
             return new ResponseEntity<>(routes.get(0), HttpStatus.OK);
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // or another appropriate status
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping("/calculateOptimalRoute")
-    public ResponseEntity<String> calculateOptimalRoute() {
+    public ResponseEntity<String> calculateOptimalRoute(@RequestBody List<Client> clientList) {
         try {
             List<Client> clients = gestionnaireClient.getClientList();
             Client entrepot = gestionnaireEntrepot.getEntrepot();
@@ -88,6 +89,10 @@ public class RestService {
                     while ((line = reader.readLine()) != null) {
                         response.append(line);
                     }
+
+                    System.out.println(response.toString());
+                    //delete best route
+                    //bestRouteService.deleteBestRoute(1);
                     //bestRouteService.saveBestRoute(response.toString());
 
                     // save adresse IP in log

@@ -28,7 +28,7 @@ public class BestRouteService {
     public void saveBestRoute(String optimalRoute) {
         BestRoute bestRoute = new BestRoute();
         bestRoute.setColumnName(optimalRoute);
-        //bestRouteRepo.save(bestRoute);
+        bestRouteRepo.save(bestRoute);
         System.out.println("Route optimale enregistrée en base de données : " + optimalRoute);
     }
 
