@@ -1,6 +1,7 @@
 package A23.C6.TP3.ServiceREST.PMAF.gestionnaire;
 
 import A23.C6.TP3.ServiceREST.PMAF.modele.Client;
+import A23.C6.TP3.ServiceREST.PMAF.service.GeoapifyService;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -16,7 +17,23 @@ public class LireFichierEntrepot {
         try {
             JSONObject jsonO = (JSONObject) jsonP.parse(new FileReader("entrepot.json"));
 
-            return new Client((String) jsonO.get("nom"), (String) jsonO.get("adresse"));
+            if (jsonO.containsKey("nom") && jsonO.containsKey("adresse")) {
+                String nom = (String) jsonO.get("nom");
+                String adresse = (String) jsonO.get("adresse");
+
+                // Utiliser Geoapify pour valider les coordonnées de l'entrepôt
+                GeoapifyService geoapifyService = new GeoapifyService();
+                Client entrepot = new Client(nom, adresse);
+                geoapifyService.geocodeWithGeoapify(entrepot);
+
+                if (entrepot.getLatitude() != null && entrepot.getLongitude() != null) {
+                    return entrepot;
+                } else {
+                    System.err.println("Les coordonnées de l'entrepôt sont null pour l'adresse : " + adresse);
+                }
+            } else {
+                System.err.println("Le fichier entrepot.json ne contient pas les champs nécessaires.");
+            }
         } catch (IOException | ParseException e) {
             e.printStackTrace();
         }
@@ -24,15 +41,12 @@ public class LireFichierEntrepot {
     }
 
     public static void main(String[] args) {
-        JSONParser jsonP = new JSONParser();
-
-        try {
-            JSONObject jsonO = (JSONObject) jsonP.parse(new FileReader("entrepot.json"));
-
-            System.out.println("Nom: " + jsonO.get("nom"));
-            System.out.println("Adresse: " + jsonO.get("adresse"));
-        } catch (IOException | ParseException e) {
-            e.printStackTrace();
+        Client entrepot = chargerEntrepot();
+        if (entrepot != null) {
+            System.out.println(entrepot.toString());
+            System.out.println("Coordonnées de l'entrepôt : Latitude = " + entrepot.getLatitude() + ", Longitude = " + entrepot.getLongitude());
+        } else {
+            System.err.println("Impossible de charger les coordonnées de l'entrepôt.");
         }
     }
 }
