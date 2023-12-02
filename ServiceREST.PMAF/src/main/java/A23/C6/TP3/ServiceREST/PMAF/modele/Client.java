@@ -7,28 +7,17 @@ public class Client {
     private String adresse;
     private double latitude;
     private double longitude;
-    private double distance;
-
     public Client(String nom, String adresse) {
         this.nom = nom;
         this.adresse = adresse;
     }
 
-
     public String getNom() {
         return nom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
     public String getAdresse() {
         return adresse;
-    }
-
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
     }
 
     public Object getLatitude() {
@@ -45,14 +34,6 @@ public class Client {
 
     public void setLongitude(double longitude) {
         this.longitude = longitude;
-    }
-
-    public double getDistance() {
-        return distance;
-    }
-
-    public void setDistance(double distance) {
-        this.distance = distance;
     }
 
     @Override
