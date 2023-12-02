@@ -1,44 +1,41 @@
 package A23.C6.TP3.ServiceREST.PMAF.db;
 
 //import jakarta.persistence.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.MessageFormat;
 import java.util.List;
 
 @Service
 public class BestRouteService {
 
-    private  BestRouteRepo bestRouteRepo;
+    private BestRouteRepo bestRouteRepo;
+
     @Autowired
     public void setBestRouteRepo(BestRouteRepo bestRouteRepo) {
         this.bestRouteRepo = bestRouteRepo;
     }
 
     public void saveBestRoute(String routeOptimale) {
-        List<BestRoute> routeList = bestRouteRepo.findAllRoutes();
-        if (routeList.isEmpty()) {
-            BestRoute newRoute = new BestRoute();
-            newRoute.setColumnName(routeOptimale);
-            bestRouteRepo.save(newRoute);
-        } else {
-            BestRoute firstRoute = routeList.get(0);
-            firstRoute.setColumnName(routeOptimale);
-            bestRouteRepo.save(firstRoute);
+        BestRoute existingRoute = bestRouteRepo.findByColumnName(routeOptimale);
+
+        if (existingRoute == null) {
+            BestRoute newBestRoute = new BestRoute();
+            newBestRoute.setColumnName(routeOptimale);
+            bestRouteRepo.save(newBestRoute);
         }
     }
 
-
-    public void deleteBestRoute(Integer id){
+    public void deleteBestRoute(Integer id) {
         bestRouteRepo.deleteById(id);
     }
 
-    public BestRoute getOneBestRoute(int id) {
-        return bestRouteRepo.findById(id);
+    public BestRoute getRouteById(int i) {
+        return bestRouteRepo.findById(i);
     }
 
-    public List<BestRoute> getAllRoutes(){
+    public List<BestRoute> getAllRoutes() {
         return bestRouteRepo.findAll();
     }
 }

@@ -2,6 +2,7 @@ package A23.C6.TP3.ServiceREST.PMAF.service;
 
 
 import A23.C6.TP3.ServiceREST.PMAF.api.GeoapifyApi;
+import A23.C6.TP3.ServiceREST.PMAF.db.BestRoute;
 import A23.C6.TP3.ServiceREST.PMAF.db.BestRouteService;
 import A23.C6.TP3.ServiceREST.PMAF.gestionnaire.GestionnaireClient;
 import A23.C6.TP3.ServiceREST.PMAF.gestionnaire.GestionnaireEntrepot;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -43,10 +45,12 @@ public class RestService {
         return gestionnaireClient.getClientList();
     }
 
-    @GetMapping("/getBestRoute")
-    public void getBestRoute() {
-        bestRouteService.getOneBestRoute(0);
+    @GetMapping("/getBestRoute/{id}")
+    public ResponseEntity<String> getBestRoute(@PathVariable int id) {
+        BestRoute bestRoute = bestRouteService.getRouteById(id);
+        return new ResponseEntity<>(bestRoute.getColumnName(),HttpStatus.OK);
     }
+
 
     @PostMapping("/calculateOptimalRoute")
     public ResponseEntity<String> calculateOptimalRoute() {
