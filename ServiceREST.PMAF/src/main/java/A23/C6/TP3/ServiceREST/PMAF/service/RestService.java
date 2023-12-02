@@ -63,21 +63,15 @@ public class RestService {
     }
 
     @PostMapping("/calculateOptimalRoute")
-    public ResponseEntity<String> calculateOptimalRoute(@RequestBody List<Client> clientList) {
-        if (clientList!=null){
-            System.out.println(clientList.toString());
-        }
-       try {
+    public ResponseEntity<String> calculateOptimalRoute() {
+        try {
             List<Client> clients = gestionnaireClient.getClientList();
             Client entrepot = gestionnaireEntrepot.getEntrepot();
-
             GeoapifyService geoapifyService = new GeoapifyService();
-
             // 1. Géocodage des adresses des clients
             for (Client client : clients) {
                 geoapifyService.geocodeWithGeoapify(client);
             }
-
             // 2. Construction des waypoints pour l'API de routage
             StringBuilder waypointsBuilder = new StringBuilder();
             waypointsBuilder.append(entrepot.getLatitude()).append(",").append(entrepot.getLongitude()).append("|");
@@ -86,68 +80,36 @@ public class RestService {
             }
             // Supprimer le dernier caractère "|"
             waypointsBuilder.deleteCharAt(waypointsBuilder.length() - 1);
-
-            // 3. Appel à l'API planner ditineraire de routage Geoapify
-            String apiUrl = "https://api.geoapify.com/v1/routeplanner?apiKey=427ba5112e3a44178d8161dd05279f16";
-            HttpURLConnection routePlannerConnection = null;
-            OutputStream routePlannerOutputStream = null;
-
-            try {
-                routePlannerConnection = (HttpURLConnection) new URL(apiUrl).openConnection();
-                routePlannerConnection.setRequestMethod("POST");
-                routePlannerConnection.setDoOutput(true);
-                routePlannerConnection.setRequestProperty("Content-Type", "application/json");
-
-                // Construction du corps de la requête pour l'API de routage
-                String routePlannerRequestBody = constructRoutePlannerRequestBody(entrepot, clients);
-                byte[] routePlannerRequestBytes = routePlannerRequestBody.getBytes(StandardCharsets.UTF_8);
-
-                routePlannerOutputStream = routePlannerConnection.getOutputStream();
-                routePlannerOutputStream.write(routePlannerRequestBytes);
-
-                // Récupération de la réponse de l'API de routage
-                int routePlannerResponseCode = routePlannerConnection.getResponseCode();
-                if (routePlannerResponseCode == HttpURLConnection.HTTP_OK) {
-                    try (BufferedReader routePlannerReader = new BufferedReader(new InputStreamReader(routePlannerConnection.getInputStream()))) {
-                        StringBuilder routePlannerResponse = new StringBuilder();
-                        String line;
-                        while ((line = routePlannerReader.readLine()) != null) {
-                            routePlannerResponse.append(line);
-                        }
-
-                        // Parse la réponse pour obtenir la distance de la meilleure route
-                        JSONObject routePlannerJson = (JSONObject) new JSONParser().parse(routePlannerResponse.toString());
-                        Double bestRouteDistance = (Double) routePlannerJson.get("distance");
-
-                        // Enregistre la meilleure route dans la base de données
-                         //bestRouteService.saveBestRoute(bestRouteDistance);
-
-                        // Réponse à renvoyer en cas de succès
-                        return new ResponseEntity<>("Route optimale calculée et enregistrée avec succès", HttpStatus.OK);
-                    } catch (ParseException e) {
-                        throw new RuntimeException(e);
+            // 3. Appel à l'API de routage Geoapify
+            String apiKey = "427ba5112e3a44178d8161dd05279f16";
+            String routingUrl = "https://api.geoapify.com/v1/routing?waypoints=" + waypointsBuilder.toString() +
+                    "&mode=drive&apiKey=" + apiKey;
+            URL url = new URL(routingUrl);
+            HttpURLConnection http = (HttpURLConnection) url.openConnection();
+            http.setRequestProperty("Accept", "application/json");
+            if (http.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                // 4. Lecture de la réponse de l'API
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(http.getInputStream()))) {
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line);
                     }
-                } else {
-                    // En cas d'échec de la requête à l'API de routage
-                    return new ResponseEntity<>("Erreur lors de la requête à l'API de routage Geoapify : " + routePlannerResponseCode, HttpStatus.INTERNAL_SERVER_ERROR);
+                    //bestRouteService.saveBestRoute(response.toString());
+                    // save adresse IP in log
+                    logIpAddress();
+                    return new ResponseEntity<>("Route optimale calculée et enregistrée avec succès", HttpStatus.OK);
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+            } else {
+                System.err.println("Erreur lors de la requête Geoapify Routing : " + http.getResponseCode() + " " + http.getResponseMessage());
                 return new ResponseEntity<>("Erreur lors du calcul de la route optimale", HttpStatus.INTERNAL_SERVER_ERROR);
-            } finally {
-                // Fermeture des flux et déconnexion
-                if (routePlannerOutputStream != null) {
-                    routePlannerOutputStream.close();
-                }
-                if (routePlannerConnection != null) {
-                    routePlannerConnection.disconnect();
-                }
             }
         } catch (IOException e) {
             e.printStackTrace();
             return new ResponseEntity<>("Erreur lors du calcul de la route optimale", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
 
 
