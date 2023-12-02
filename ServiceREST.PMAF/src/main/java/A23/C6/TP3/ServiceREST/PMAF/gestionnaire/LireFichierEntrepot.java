@@ -6,33 +6,44 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class LireFichierEntrepot {
 
     protected static Client chargerEntrepot() {
         JSONParser jsonP = new JSONParser();
 
+        ClassLoader classLoader = LireFichierEntrepot.class.getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream("entrepot.json");
+
         try {
-            JSONObject jsonO = (JSONObject) jsonP.parse(new FileReader("entrepot.json"));
+            if (inputStream != null) {
+                try (InputStreamReader reader = new InputStreamReader(inputStream, StandardCharsets.UTF_8)) {
+                    JSONObject jsonO = (JSONObject) jsonP.parse(reader);
 
-            if (jsonO.containsKey("nom") && jsonO.containsKey("adresse")) {
-                String nom = (String) jsonO.get("nom");
-                String adresse = (String) jsonO.get("adresse");
+                    if (jsonO.containsKey("nom") && jsonO.containsKey("adresse")) {
+                        String nom = (String) jsonO.get("nom");
+                        String adresse = (String) jsonO.get("adresse");
 
-                // Utiliser Geoapify pour valider les coordonnées de l'entrepôt
-                GeoapifyApi geoapifyApi = new GeoapifyApi();
-                Client entrepot = new Client(nom, adresse);
-                geoapifyApi.geocodeWithGeoapify(entrepot);
+                        // Utiliser Geoapify pour valider les coordonnées de l'entrepôt
+                        GeoapifyApi geoapifyApi = new GeoapifyApi();
+                        Client entrepot = new Client(nom, adresse);
+                        geoapifyApi.geocodeWithGeoapify(entrepot);
 
-                if (entrepot.getLatitude() != null && entrepot.getLongitude() != null) {
-                    return entrepot;
-                } else {
-                    System.err.println("Les coordonnées de l'entrepôt sont null pour l'adresse : " + adresse);
+                        if (entrepot.getLatitude() != null && entrepot.getLongitude() != null) {
+                            return entrepot;
+                        } else {
+                            System.err.println("Les coordonnées de l'entrepôt sont null pour l'adresse : " + adresse);
+                        }
+                    } else {
+                        System.err.println("Le fichier entrepot.json ne contient pas les champs nécessaires.");
+                    }
                 }
             } else {
-                System.err.println("Le fichier entrepot.json ne contient pas les champs nécessaires.");
+                System.err.println("Le fichier entrepot.json n'a pas été trouvé dans les ressources.");
             }
         } catch (IOException | ParseException e) {
             e.printStackTrace();

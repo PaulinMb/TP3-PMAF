@@ -66,7 +66,11 @@ public class ApiCall {
 
             for (int i = 0;i<jsonA.size();i++) {
                 JSONObject jsonO = (JSONObject)jsonP.parse(jsonA.get(i).toString());
-                clientListRet.add(new Client((String) jsonO.get("nom"), (String) jsonO.get("adresse"), (Object) jsonO.get("latitude"), (Object) jsonO.get("longitude"), (Double) jsonO.get("distance")));
+                clientListRet.add(new
+                        Client((String) jsonO.get("nom"), (String) jsonO.get("adresse"),
+                        (Double) jsonO.get("latitude") == null ? 0.0 : (Double) jsonO.get("latitude"),
+                        (Double) jsonO.get("longitude") == null ? 0.0 : (Double) jsonO.get("longitude") ,
+                        (Double) jsonO.get("distance") == null ? 0.0 : (Double) jsonO.get("distance")));
             }
 
         } catch (Exception e) {

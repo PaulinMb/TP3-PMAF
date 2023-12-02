@@ -6,8 +6,8 @@ import java.util.Objects;
 public class Client {
     private String nom;
     private String adresse;
-    private Object latitude;
-    private Object longitude;
+    private double latitude;
+    private double longitude;
     private double distance;
 
     public Client(String nom, String adresse) {
@@ -15,7 +15,7 @@ public class Client {
         this.adresse = adresse;
     }
 
-    public Client(String nom, String adresse, Object latitude, Object longitude, double distance) {
+    public Client(String nom, String adresse, double latitude, double longitude, double distance) {
         this.nom = nom;
         this.adresse = adresse;
         this.latitude = latitude;
@@ -43,7 +43,7 @@ public class Client {
         return latitude;
     }
 
-    public void setLatitude(Object latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
@@ -51,7 +51,7 @@ public class Client {
         return longitude;
     }
 
-    public void setLongitude(Object longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

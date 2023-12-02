@@ -11,10 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -47,15 +44,16 @@ public class RestService {
 
     @GetMapping("/getBestRoute")
     public ResponseEntity<String> getBestRoute() {
-        BestRoute bestRoute = bestRouteService.getRouteById(4);
+        BestRoute bestRoute = bestRouteService.getRouteById(1);
         return new ResponseEntity<>(bestRoute.getColumnName(),HttpStatus.OK);
     }
 
 
     @PostMapping("/calculateOptimalRoute")
-    public ResponseEntity<String> calculateOptimalRoute() {
+    public ResponseEntity<String> calculateOptimalRoute(@RequestBody List<Client> clients) {
         Client entrepot = gestionnaireEntrepot.getEntrepot();
-        List<Client> clients = gestionnaireClient.getClientList();
+        System.out.println(clients.toString());
+
 
         // 1. Geocodage des adresses des clients avec Geoapify
         for (Client client : clients) {
@@ -67,16 +65,11 @@ public class RestService {
         DecimalFormat df = new DecimalFormat("0.00");
         double distance = geoapifyApi.calculateTotalDistance(clients);
 
-        // 3. Sauvegarde en BD
-        String resultBd =
-                "Deubt : " + optimalRoute.get(0).toString() + " ->  "
-                        + "Fin : " + optimalRoute.get(optimalRoute.size() - 1)
-                        + " Distance totale : " + df.format(distance) + " km";
-        bestRouteService.saveBestRoute(resultBd);
 
         // 3. Affichage de la route optimale dans la console
         StringBuilder resultStringBuilder = new StringBuilder();
         resultStringBuilder.append("Route optimale : \n");
+        resultStringBuilder.append("Entrepot : " + entrepot.getNom() + " - " +  entrepot.getAdresse());
 
         int i = 0;
         for (Client client : optimalRoute) {
@@ -88,12 +81,13 @@ public class RestService {
                     .append(client.getAdresse())
                     .append("\n");
         }
+        resultStringBuilder.append("Entrepot : " + entrepot.getNom() + " - " +  entrepot.getAdresse());
 
         resultStringBuilder.append("Distance totale : ")
                 .append(df.format(distance))
                 .append(" km");
-
         String showRoute = resultStringBuilder.toString();
+        bestRouteService.saveBestRoute(showRoute);
         System.out.println(showRoute);
 
         logIpAddress();

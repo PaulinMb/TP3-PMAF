@@ -18,13 +18,11 @@ public class BestRouteService {
     }
 
     public void saveBestRoute(String routeOptimale) {
-        BestRoute existingRoute = bestRouteRepo.findByColumnName(routeOptimale);
+        deleteBestRoute(1);
+        BestRoute newBestRoute = new BestRoute();
+        newBestRoute.setColumnName(routeOptimale);
+        bestRouteRepo.save(newBestRoute);
 
-        if (existingRoute == null) {
-            BestRoute newBestRoute = new BestRoute();
-            newBestRoute.setColumnName(routeOptimale);
-            bestRouteRepo.save(newBestRoute);
-        }
     }
 
     public void deleteBestRoute(Integer id) {
