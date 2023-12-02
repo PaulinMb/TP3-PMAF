@@ -45,9 +45,9 @@ public class RestService {
         return gestionnaireClient.getClientList();
     }
 
-    @GetMapping("/getBestRoute/{id}")
-    public ResponseEntity<String> getBestRoute(@PathVariable int id) {
-        BestRoute bestRoute = bestRouteService.getRouteById(id);
+    @GetMapping("/getBestRoute")
+    public ResponseEntity<String> getBestRoute() {
+        BestRoute bestRoute = bestRouteService.getRouteById(4);
         return new ResponseEntity<>(bestRoute.getColumnName(),HttpStatus.OK);
     }
 
