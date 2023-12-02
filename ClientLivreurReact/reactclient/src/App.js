@@ -5,7 +5,7 @@ import './App.css';
 
 function App() {
   const [route,setRoute] = useState(""); 
-  const url = "http://localhost:8080/getBestRoute"
+  const url = "http://172.20.45.38:8080/ServiceREST.PMAF-0.0.1-SNAPSHOT/getBestRoute"
 
   let requestOptions={
     method : 'Get'

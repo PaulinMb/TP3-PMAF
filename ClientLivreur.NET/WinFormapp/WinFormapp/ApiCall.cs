@@ -12,7 +12,7 @@ namespace WinFormapp
         private HttpClient _httpClient;
 
 
-        private string url = "http://localhost:8080/getBestRoute";
+        private string url = "http://172.20.45.38:8080/ServiceREST.PMAF-0.0.1-SNAPSHOT/getBestRoute";
 
         public ApiCall()
         {
