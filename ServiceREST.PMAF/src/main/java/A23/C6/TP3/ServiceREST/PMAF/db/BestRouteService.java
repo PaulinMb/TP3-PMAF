@@ -11,24 +11,31 @@ import java.util.List;
 public class BestRouteService {
 
     private  BestRouteRepo bestRouteRepo;
-
-    public BestRouteRepo getBestRouteRepo() {
-        return bestRouteRepo;
-    }
-
     @Autowired
     public void setBestRouteRepo(BestRouteRepo bestRouteRepo) {
         this.bestRouteRepo = bestRouteRepo;
     }
 
-    public void saveBestRoute(Double totalDistance) {
-        BestRoute bestRoute = new BestRoute();
-        bestRoute.setColumnName(MessageFormat.format("Total Distance: {totalDistance} meters", totalDistance));
-        bestRouteRepo.save(bestRoute);
-        System.out.println("Route optimale enregistrée en base de données : " + bestRoute.getColumnName());
+    public void saveBestRoute(String routeOptimale) {
+        List<BestRoute> routeList = bestRouteRepo.findAllRoutes();
+        if (routeList.isEmpty()) {
+            BestRoute newRoute = new BestRoute();
+            newRoute.setColumnName(routeOptimale);
+            bestRouteRepo.save(newRoute);
+        } else {
+            BestRoute firstRoute = routeList.get(0);
+            firstRoute.setColumnName(routeOptimale);
+            bestRouteRepo.save(firstRoute);
+        }
     }
+
+
     public void deleteBestRoute(Integer id){
         bestRouteRepo.deleteById(id);
+    }
+
+    public BestRoute getOneBestRoute(int id) {
+        return bestRouteRepo.findById(id);
     }
 
     public List<BestRoute> getAllRoutes(){

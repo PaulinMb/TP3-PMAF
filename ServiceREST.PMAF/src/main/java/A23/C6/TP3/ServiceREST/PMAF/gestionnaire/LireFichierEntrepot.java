@@ -1,7 +1,7 @@
 package A23.C6.TP3.ServiceREST.PMAF.gestionnaire;
 
 import A23.C6.TP3.ServiceREST.PMAF.modele.Client;
-import A23.C6.TP3.ServiceREST.PMAF.service.GeoapifyService;
+import A23.C6.TP3.ServiceREST.PMAF.api.GeoapifyApi;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -22,9 +22,9 @@ public class LireFichierEntrepot {
                 String adresse = (String) jsonO.get("adresse");
 
                 // Utiliser Geoapify pour valider les coordonnées de l'entrepôt
-                GeoapifyService geoapifyService = new GeoapifyService();
+                GeoapifyApi geoapifyApi = new GeoapifyApi();
                 Client entrepot = new Client(nom, adresse);
-                geoapifyService.geocodeWithGeoapify(entrepot);
+                geoapifyApi.geocodeWithGeoapify(entrepot);
 
                 if (entrepot.getLatitude() != null && entrepot.getLongitude() != null) {
                     return entrepot;

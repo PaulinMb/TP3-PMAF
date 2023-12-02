@@ -12,4 +12,6 @@ import java.util.List;
 public interface BestRouteRepo extends JpaRepository<BestRoute, Integer> {
     @Query("SELECT br FROM BestRoute br")
     List<BestRoute> findAllRoutes();
+
+    BestRoute findById(int id);
 }
