@@ -19,26 +19,14 @@ public class BestRouteService {
         this.bestRouteRepo = bestRouteRepo;
     }
 
-    public void saveBestRoute(String routeOptimale) {
-        BestRoute existingBestRoute = bestRouteRepo.findById(1);
 
-        if (existingBestRoute != null) {
-            // Si la BestRoute existe, la mettre à jour
-            existingBestRoute.setColumnName(routeOptimale);
-            bestRouteRepo.save(existingBestRoute);
-        } else {
-            // Si la BestRoute n'existe pas, la créer
-            existingBestRoute = new BestRoute(1,routeOptimale);
-            bestRouteRepo.save(existingBestRoute);
-        }
-    }
 
     public void deleteBestRoute(Integer id) {
         bestRouteRepo.deleteById(id);
     }
 
-    public BestRoute getRouteById(int i) {
-        return bestRouteRepo.findById(i);
+    public BestRoute getRouteById() {
+        return bestRouteRepo.findById(1);
     }
 
     public List<BestRoute> getAllRoutes() {

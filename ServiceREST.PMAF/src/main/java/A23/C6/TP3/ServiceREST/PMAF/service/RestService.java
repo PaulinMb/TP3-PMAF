@@ -23,7 +23,7 @@ import java.util.*;
 public class RestService {
     private GestionnaireClient gestionnaireClient;
     private GestionnaireEntrepot gestionnaireEntrepot;
-    private BestRouteService bestRouteService;
+    private A23.C6.TP3.ServiceREST.PMAF.db.BestRouteService bestRouteService;
 
     @Autowired
     private GeoapifyApi geoapifyApi;
@@ -44,7 +44,7 @@ public class RestService {
 
     @GetMapping("/getBestRoute")
     public ResponseEntity<String> getBestRoute() {
-        BestRoute bestRoute = bestRouteService.getRouteById(1);
+        BestRoute bestRoute = bestRouteService.getRouteById();
         return new ResponseEntity<>(bestRoute.getColumnName(),HttpStatus.OK);
     }
 
@@ -87,7 +87,7 @@ public class RestService {
                 .append(df.format(distance))
                 .append(" km");
         String showRoute = resultStringBuilder.toString();
-        bestRouteService.saveBestRoute(showRoute);
+        bestRouteService.getRouteById().setColumnName(showRoute);
         System.out.println(showRoute);
 
         logIpAddress();
