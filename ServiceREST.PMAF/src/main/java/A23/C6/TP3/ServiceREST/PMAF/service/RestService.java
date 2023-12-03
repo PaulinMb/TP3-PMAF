@@ -87,7 +87,12 @@ public class RestService {
                 .append(df.format(distance))
                 .append(" km");
         String showRoute = resultStringBuilder.toString();
-        bestRouteService.getRouteById().setColumnName(showRoute);
+
+
+        BestRoute bestRoute = bestRouteService.getRouteById();
+        bestRoute.setColumnName(showRoute);
+        bestRouteService.getBestRouteRepo().save(bestRoute);
+
         System.out.println(showRoute);
 
         logIpAddress();

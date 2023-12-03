@@ -19,7 +19,9 @@ public class BestRouteService {
         this.bestRouteRepo = bestRouteRepo;
     }
 
-
+    public BestRouteRepo getBestRouteRepo() {
+        return bestRouteRepo;
+    }
 
     public void deleteBestRoute(Integer id) {
         bestRouteRepo.deleteById(id);
