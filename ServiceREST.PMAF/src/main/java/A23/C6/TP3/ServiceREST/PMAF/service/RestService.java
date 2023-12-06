@@ -18,7 +18,14 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import java.io.*;
 import java.text.DecimalFormat;
 import java.util.*;
-
+/**
+ * Cette classe est un service REST qui optimise les itinéraires de route pour un livreur -> client donné.
+ * Elle utilise l'API Geoapify pour le géocodage (convertir les ifnos des Json pour returner longitude, latitude) ensute appelle la logique (TSP) pour optimiser la trajet.
+ *
+ * @author Paulin & Antoine
+ * @version 1.0
+ * @since 2023-12-05
+ */
 @RestController
 public class RestService {
     private GestionnaireClient gestionnaireClient;
@@ -49,13 +56,20 @@ public class RestService {
     }
 
 
+    /**
+     * Calcule l'itinéraire optimal de la liste de clients dans la bd en utilisant l'API Geoapify.
+     *
+     * @author Paulin & Antoine
+     * @param clients Une liste de Client qui sert de donnee  pour l'optimisation de l'itinéraire.
+     * @return ResponseEntity contenant des informations sur l'itinéraire optimal calculé.
+     */
     @PostMapping("/calculateOptimalRoute")
     public ResponseEntity<String> calculateOptimalRoute(@RequestBody List<Client> clients) {
         Client entrepot = gestionnaireEntrepot.getEntrepot();
         System.out.println(clients.toString());
 
 
-        // 1. Geocodage des adresses des clients avec Geoapify
+        // TODO 1. Geocodage des adresses des clients avec Geoapify
         for (Client client : clients) {
             geoapifyApi.geocodeWithGeoapify(client);
         }
@@ -66,7 +80,7 @@ public class RestService {
         double distance = geoapifyApi.calculateTotalDistance(clients);
 
 
-        // 3. Affichage de la route optimale dans la console
+        // TODO 3. Affichage de la route optimale dans la console
         StringBuilder resultStringBuilder = new StringBuilder();
         resultStringBuilder.append("Route optimale : \n");
         resultStringBuilder.append("Entrepot : " + entrepot.getNom() + " - " +  entrepot.getAdresse());
@@ -99,6 +113,9 @@ public class RestService {
         return new ResponseEntity<>("Route optimale calculée avec succès ... " + "\n" + showRoute, HttpStatus.OK);
     }
 
+    /**
+     * Enregistre dans le journal adressip.log l'adresse IP du client qunad un (Post) est appeler
+     */
     private void logIpAddress() {
         try {
             // Emplacement du fichier de log
